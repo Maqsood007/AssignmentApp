@@ -8,4 +8,6 @@
     <string name="shorten_a_link_here">Shorten a link here...</string>
     <string name="copy">Copy</string>
     <string name="copied">Copied</string>
+    <string name="your_ink_history">Your Link History</string>
+    <string name="delete_a_link">Delete a link</string>
 </resources>
