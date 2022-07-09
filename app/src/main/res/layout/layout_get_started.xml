@@ -19,41 +19,37 @@
         android:id="@+id/textViewShortly"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textSize="@dimen/_30sdp"
-        android:textColor="@color/bluish_purple"
         android:fontFamily="@font/opensans_bold"
+        android:text="@string/app_name"
+        android:textColor="@color/bluish_purple"
+        android:textSize="@dimen/_30sdp"
         app:layout_constraintBottom_toTopOf="@+id/imageViewDefaultIllustration"
         app:layout_constraintEnd_toEndOf="@+id/imageViewDefaultIllustration"
-        app:layout_constraintStart_toStartOf="@+id/imageViewDefaultIllustration"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/imageViewDefaultIllustration" />
 
     <TextView
         android:id="@+id/textViewGetStarted"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/let_get_started"
-        android:textSize="@dimen/_17sdp"
-        android:textColor="@color/bluish_purple"
         android:fontFamily="@font/opensans_bold"
-        app:layout_constraintBottom_toTopOf="@+id/textViewInstruction"
+        android:text="@string/let_get_started"
+        android:textColor="@color/bluish_purple"
+        android:textSize="@dimen/_17sdp"
         app:layout_constraintEnd_toEndOf="@+id/imageViewDefaultIllustration"
         app:layout_constraintStart_toStartOf="@+id/imageViewDefaultIllustration"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewDefaultIllustration"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewDefaultIllustration" />
 
     <TextView
         android:id="@+id/textViewInstruction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/paste_your_first_link"
-        android:textSize="@dimen/_13sdp"
-        android:textColor="@color/bluish_purple"
+        android:fontFamily="@font/opensans_semibold"
         android:gravity="center"
         android:includeFontPadding="false"
-        android:fontFamily="@font/opensans_semibold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/paste_your_first_link"
+        android:textColor="@color/bluish_purple"
+        android:textSize="@dimen/_13sdp"
         app:layout_constraintEnd_toEndOf="@+id/imageViewDefaultIllustration"
         app:layout_constraintStart_toStartOf="@+id/imageViewDefaultIllustration"
-        app:layout_constraintTop_toBottomOf="@id/textViewGetStarted" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewGetStarted" />
 </androidx.constraintlayout.widget.ConstraintLayout>
