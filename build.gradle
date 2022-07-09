@@ -6,6 +6,8 @@ plugins {
     id "com.diffplug.gradle.spotless" version '3.27.0'
 }
 
+apply from : 'dependencies.gradle'
+
 task installGitHook(type: Copy) {
     from new File(rootProject.rootDir, 'pre-commit')
     into { new File(rootProject.rootDir, '.git/hooks') }
