@@ -43,8 +43,8 @@ def libraries = [
         //endregion
 
         //region HILT
-        hilt                   : "com.google.dagger:hilt-android:2.38.1",
-        hiltGoogleCompiler     : "com.google.dagger:hilt-compiler:2.38.1",
+        hilt                   : "com.google.dagger:hilt-android:2.42",
+        hiltGoogleCompiler     : "com.google.dagger:hilt-compiler:2.42",
         hiltLifecycleViewModel : "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03",
         hiltAndroidXCompiler   : "androidx.hilt:hilt-compiler:1.0.0",
         // endregion
@@ -67,8 +67,6 @@ ext.appDepedencies = [
         addDependency("implementation", libraries.okhttpInterceptor),
         addDependency("implementation", libraries.hilt),
         addDependency("kapt", libraries.hiltGoogleCompiler),
-        addDependency("implementation", libraries.hiltLifecycleViewModel),
-        addDependency("kapt", libraries.hiltAndroidXCompiler),
         addDependency("testImplementation", libraries.junit),
         addDependency("androidTestImplementation", libraries.junitExt),
         addDependency("androidTestImplementation", libraries.espresso),
