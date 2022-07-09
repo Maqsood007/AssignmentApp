@@ -16,6 +16,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.27355072463768115" />
         <entry key="app/src/main/res/layout/layout_get_started.xml" value="0.375" />
         <entry key="app/src/main/res/layout/layout_link_history.xml" value="0.2776268115942029" />
+        <entry key="app/src/main/res/layout/layout_list_item_link_history.xml" value="0.25" />
         <entry key="app/src/main/res/layout/layout_shorten_url_form.xml" value="0.234375" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1855" />
       </map>

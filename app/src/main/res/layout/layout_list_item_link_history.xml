@@ -1,6 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="10dp"
+    app:cardMaxElevation="12dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/_15sdp">
+
+        <TextView
+            android:id="@+id/textViewLink"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/opensans_semibold"
+            android:lines="1"
+            android:textColor="@color/bluish_purple"
+            android:textSize="@dimen/_15sdp"
+            app:layout_constraintBottom_toTopOf="@+id/divider"
+            app:layout_constraintEnd_toStartOf="@+id/buttonDelete"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="https://www.spiegel.de/sie..." />
+
+        <ImageButton
+            android:id="@+id/buttonDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:background="?selectableItemBackground"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewLink"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewLink"
+            app:srcCompat="@drawable/ic_delete" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="@dimen/_50sdp"
+            android:layout_marginEnd="1dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewShortlyLink"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:fontFamily="@font/opensans_semibold"
+            android:textColor="@color/green"
+            android:textSize="@dimen/_15sdp"
+            app:layout_constraintEnd_toEndOf="@+id/buttonDelete"
+            app:layout_constraintStart_toStartOf="@+id/textViewLink"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
+            tools:text="https://rel.ink/k4|Kyk" />
+
+        <Button
+            android:id="@+id/buttonCopy"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:fontFamily="@font/opensans_bold"
+            android:text="@string/copy"
+            android:textSize="@dimen/_15sdp"
+            app:layout_constraintEnd_toEndOf="@+id/textViewShortlyLink"
+            app:layout_constraintStart_toStartOf="@+id/textViewShortlyLink"
+            app:layout_constraintTop_toBottomOf="@+id/textViewShortlyLink" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
