@@ -16,8 +16,4 @@ object DbModule {
     @Singleton
     @Provides
     fun provideDatabase(@ApplicationContext context: Context) = ShortlyDatabase.getInstance(context)
-
-    @Singleton
-    @Provides
-    fun provideMediaDao(database: ShortlyDatabase) = database.shortlyLinkDao()
 }
