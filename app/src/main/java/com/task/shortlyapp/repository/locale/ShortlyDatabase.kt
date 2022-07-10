@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.task.shortlyapp.repository.locale.DBConstants.DB_VERSION
 import com.task.shortlyapp.repository.locale.DBConstants.DBNAME
+import com.task.shortlyapp.repository.locale.DBConstants.DB_VERSION
 import com.task.shortlyapp.repository.locale.dao.ShortlyLinkDao
 import com.task.shortlyapp.repository.locale.entity.ShortlyLink
 
