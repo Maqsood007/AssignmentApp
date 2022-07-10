@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
 }
@@ -35,6 +36,10 @@ android {
             buildConfigField "String", "BASE_URL", "\"https://api.shrtco.de/v2/\""
         }
 
+    }
+
+    buildFeatures {
+        viewBinding true
     }
 
     compileOptions {
