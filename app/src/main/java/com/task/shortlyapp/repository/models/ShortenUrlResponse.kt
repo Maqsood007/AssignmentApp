@@ -1,17 +1,10 @@
 package com.task.shortlyapp.repository.models
 
+import com.google.gson.annotations.SerializedName
+import com.task.shortlyapp.repository.locale.entity.ShortlyLink
+
 data class ShortenUrlResponse(
     val ok: Boolean,
-    val result: Result
-)
-
-data class Result(
-    val code: String,
-    val full_share_link: String,
-    val full_short_link: String,
-    val full_short_link2: String,
-    val original_link: String,
-    val share_link: String,
-    val short_link: String,
-    val short_link2: String
+    @SerializedName("result")
+    val result: ShortlyLink
 )

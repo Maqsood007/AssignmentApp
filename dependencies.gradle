@@ -64,6 +64,13 @@ def libraries = [
         navigationFragmentKtx : "androidx.navigation:navigation-fragment-ktx:2.5.0",
         navigationUiKtx       : "androidx.navigation:navigation-ui-ktx:2.5.0",
         fragmentKtx           : "androidx.fragment:fragment-ktx:1.5.0",
+        //endregion
+
+        // region ROOM
+        room                    : "androidx.room:room-runtime:2.4.2",
+        roomKtx                 : "androidx.room:room-ktx:2.4.2",
+        roomKapt                : "androidx.room:room-compiler:2.4.2",
+        // endregion
 
         //region TEST
         junit                 : "junit:junit:4.13.2",
@@ -89,6 +96,9 @@ ext.appDepedencies = [
         addDependency("implementation", libraries.navigationFragmentKtx),
         addDependency("implementation", libraries.navigationUiKtx),
         addDependency("implementation", libraries.fragmentKtx),
+        addDependency("implementation", libraries.room),
+        addDependency("implementation", libraries.roomKtx),
+        addDependency("kapt", libraries.roomKapt),
         addDependency("testImplementation", libraries.junit),
         addDependency("androidTestImplementation", libraries.junitExt),
         addDependency("androidTestImplementation", libraries.espresso),
