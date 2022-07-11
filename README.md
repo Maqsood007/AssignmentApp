@@ -74,3 +74,8 @@ It was always hard to make custom fragment transaction. New navigationAPI's are 
 As i was instructed to assume build is were going to production. I have added a custom launcher icon,
 
 
+# Reference Resources
+- Working APK (https://drive.google.com/file/d/1B_XU70N_9QvZ-BUbuDUZloUTSmJ_uibg/view?usp=sharing)
+- Video demonstration(https://drive.google.com/file/d/1Tukn6SvKbDr9sm72dx2Q6yPmrM-Dbc6T/view?usp=sharing)
+
+
