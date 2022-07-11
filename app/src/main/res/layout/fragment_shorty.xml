@@ -14,11 +14,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <include
+            android:id="@+id/layout_get_started"
             layout="@layout/layout_get_started"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
         <include
+            android:id="@+id/content_link_history"
             layout="@layout/content_link_history"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

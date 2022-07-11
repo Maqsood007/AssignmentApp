@@ -1,5 +1,8 @@
 package com.task.shortlyapp.ui.shorteninglink
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context.CLIPBOARD_SERVICE
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,7 +14,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.task.shortlyapp.R
 import com.task.shortlyapp.databinding.FragmentShortyBinding
+import com.task.shortlyapp.repository.locale.entity.ShortlyLink
+import com.task.shortlyapp.ui.shorteninglink.adapter.ShortlyLinksListAdapter
 import com.task.shortlyapp.utils.NetworkState
+import com.task.shortlyapp.utils.NetworkStatusListener
 import com.task.shortlyapp.utils.getColor
 import com.task.shortlyapp.utils.getDrawable
 import com.task.shortlyapp.utils.hideKeyboard
@@ -22,6 +28,11 @@ class ShortyLinkFragment : Fragment(), ShortyLinkView, View.OnClickListener {
 
     private var fragmentShortyBinding: FragmentShortyBinding? = null
     private var shortlyViewModel: ShortlyViewModel? = null
+    private val shortlyLinksListAdapter = ShortlyLinksListAdapter({
+        onDelete(shortlyLink = it)
+    }, {
+        onCopy(shortlyLink = it)
+    })
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,23 +46,42 @@ class ShortyLinkFragment : Fragment(), ShortyLinkView, View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         shortlyViewModel = ViewModelProvider(this)[ShortlyViewModel::class.java]
         addListeners()
+        shortlyViewModel?.initialViewToggle()
+        initAdapter()
+    }
+
+    private fun initAdapter() {
+        fragmentShortyBinding?.contentLinkHistory?.recycleViewLinks?.apply {
+            adapter = shortlyLinksListAdapter
+        }
+        if (shortlyLinksListAdapter.shortlyLinks.isEmpty())
+            shortlyViewModel?.getShortenLinksFromDb()
     }
 
     //region LISTENERS
     private fun addListeners() {
+
+        shortlyViewModel?.initialViewToggle?.observe(viewLifecycleOwner) {
+            fragmentShortyBinding?.viewSwitcher?.displayedChild = it.position
+        }
+
         fragmentShortyBinding?.layoutShortenUrlForm?.buttonShortenIt?.setOnClickListener(this)
         editTextChangeListener()
         addShorteningLinkStateObserver()
     }
 
     private fun addShorteningLinkStateObserver() {
-        shortlyViewModel?.shorteningLinkState?.observe(viewLifecycleOwner) {
-            when (it) {
+        shortlyViewModel?.shorteningLinkState?.observe(viewLifecycleOwner) { state ->
+            when (state) {
                 is NetworkState.Success -> {
-                    Log.d("", "")
+                    (state.data as List<ShortlyLink>).forEach {
+                        if (shortlyLinksListAdapter.shortlyLinks.contains(it).not()) {
+                            shortlyLinksListAdapter.add(it)
+                        }
+                    }
                 }
                 is NetworkState.Failure -> {
-                    onShortyError(it.error as? String)
+                    onShortyError(state.error as? String)
                 }
                 is NetworkState.Loading -> {
                     Log.d("", "")
@@ -91,7 +121,11 @@ class ShortyLinkFragment : Fragment(), ShortyLinkView, View.OnClickListener {
         fragmentShortyBinding?.layoutShortenUrlForm?.editTextLink?.text.toString()
             .takeIf { it.isNotEmpty() }?.let {
                 hideKeyboard()
-                shortlyViewModel?.shortenLink(link = getEnteredLink())
+                if (NetworkStatusListener.isOnline(requireContext())) {
+                    shortlyViewModel?.shortenLink(link = getEnteredLink())
+                } else {
+                    onShortyError(getString(R.string.no_internet_error))
+                }
             } ?: kotlin.run {
             emptyURLError()
         }
@@ -101,6 +135,7 @@ class ShortyLinkFragment : Fragment(), ShortyLinkView, View.OnClickListener {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.error))
             .setMessage(message ?: getString(R.string.error_received_custom))
+            .setPositiveButton(getString(R.string.ok), null)
             .show()
     }
 
@@ -112,6 +147,20 @@ class ShortyLinkFragment : Fragment(), ShortyLinkView, View.OnClickListener {
         )
     }
 
+    override fun onDelete(shortlyLink: ShortlyLink) {
+        shortlyLinksListAdapter.remove(shortlyLink)
+        shortlyViewModel?.initialViewToggle?.value =
+            if (shortlyLinksListAdapter.shortlyLinks.isEmpty()) ViewType.ILLUSTRATION else ViewType.DATA
+        shortlyViewModel?.deleteShortlyLink(shortlyLink)
+    }
+
+    override fun onCopy(shortlyLink: ShortlyLink) {
+        val clipboard: ClipboardManager? =
+            requireActivity().getSystemService(CLIPBOARD_SERVICE) as? ClipboardManager
+        val clip = ClipData.newPlainText(shortlyLink.short_link, shortlyLink.short_link)
+        clipboard?.setPrimaryClip(clip)
+    }
+
     //endregion
 
     //region UTILS
@@ -121,7 +170,7 @@ class ShortyLinkFragment : Fragment(), ShortyLinkView, View.OnClickListener {
                 getDrawable(requireContext(), bgDrawable)
             )
             hint = hintText
-            getColor(requireContext(), hintColor)?.let { setHintTextColor(it) }
+            setHintTextColor(getColor(requireContext(), hintColor))
         }
     }
 }
