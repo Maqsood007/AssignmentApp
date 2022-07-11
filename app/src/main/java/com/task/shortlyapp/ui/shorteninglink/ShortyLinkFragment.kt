@@ -84,7 +84,7 @@ class ShortyLinkFragment : Fragment(), ShortyLinkView, View.OnClickListener {
                     onShortlyError(state.error as? String)
                 }
                 is NetworkState.Loading -> {
-                    Log.d("", "")
+
                 }
             }
         }
