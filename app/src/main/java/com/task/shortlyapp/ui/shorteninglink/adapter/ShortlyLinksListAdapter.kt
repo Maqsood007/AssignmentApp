@@ -51,25 +51,28 @@ class ShortlyLinksListAdapter(
     }
 
     private fun onCopied(shortlyLink: ShortlyLink, position: Int) {
-        shortlyLinks.find { it.copied && (shortlyLink.copied == it.copied).not() }?.copied = false
+        shortlyLinks.find { it.copied && (shortlyLink.copied != it.copied) }?.copied = false
         shortlyLink.copied = true
-        notifyItemChanged(position)
+        invalidateChangesToList()
         onCopyCallBack?.invoke(shortlyLink)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     fun add(shortlyLink: ShortlyLink) {
         synchronized(this.shortlyLinks) {
             this.shortlyLinks.add(0, shortlyLink)
         }
-        notifyDataSetChanged()
+        invalidateChangesToList()
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     fun remove(shortlyLink: ShortlyLink) {
         synchronized(this.shortlyLinks) {
             shortlyLinks.remove(shortlyLink)
         }
+        invalidateChangesToList()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun invalidateChangesToList() {
         notifyDataSetChanged()
     }
 

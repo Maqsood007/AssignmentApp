@@ -26,6 +26,7 @@
         android:background="@drawable/edit_text_border"
         android:fontFamily="@font/poppins_medium"
         android:gravity="center"
+        android:lines="1"
         android:hint="@string/shorten_a_link_here"
         android:textColorHint="@color/gray_dark"
         android:textCursorDrawable="@null"

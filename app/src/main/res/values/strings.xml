@@ -16,4 +16,6 @@
     <string name="error">Error</string>
     <string name="error_received_custom">We have received an error. Please check your url and try again.</string>
     <string name="no_internet_error">Internet not available. Please check your connection and try again.</string>
+    <string name="copy_to_clip_board">Copied to clipboard.</string>
+    <string name="empty" />
 </resources>

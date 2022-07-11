@@ -22,6 +22,7 @@ import com.task.shortlyapp.utils.getDrawable
 import com.task.shortlyapp.utils.hide
 import com.task.shortlyapp.utils.hideKeyboard
 import com.task.shortlyapp.utils.show
+import com.task.shortlyapp.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -81,6 +82,7 @@ class ShortyLinkFragment : Fragment(), ShortyLinkView, View.OnClickListener {
                         }
                     }
                     enableDisableShortenItButton(enable = true)
+                    fragmentShortyBinding?.layoutShortenUrlForm?.editTextLink?.setText(getString(R.string.empty))
                 }
                 is NetworkState.Failure -> {
                     onShortlyError(state.error as? String)
@@ -162,6 +164,7 @@ class ShortyLinkFragment : Fragment(), ShortyLinkView, View.OnClickListener {
             requireActivity().getSystemService(CLIPBOARD_SERVICE) as? ClipboardManager
         val clip = ClipData.newPlainText(shortlyLink.short_link, shortlyLink.short_link)
         clipboard?.setPrimaryClip(clip)
+        showToast(getString(R.string.copy_to_clip_board))
     }
 
     //endregion
