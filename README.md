@@ -70,8 +70,13 @@ Retrofit is the most commonly used library for network call in Android ecosystem
 **Jetpack Navigation**
 It was always hard to make custom fragment transaction. New navigationAPI's are easy to use and navigation, deep links, passing argument made very easy.
 
-**Launcher Icon - Had fun**
-As i was instructed to assume build is were going to production. I have added a custom launcher icon,
+**Had fun**
+As i was instructed to assume build is were going to production. I have tried my best to handle edge cases.
+- I have added a custom launcher icon.
+- Added no internet connection alert dialog.
+- Handled shortly API's error cases and shown alert dialog for better UI/UX.
+- Restricted user to avoid taping again and again if one API's call is in progress. 
+- Added a progress bar while shortening APi call to notify user.
 
 
 # Reference Resources
