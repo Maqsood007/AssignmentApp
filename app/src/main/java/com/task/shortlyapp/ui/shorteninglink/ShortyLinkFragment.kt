@@ -81,7 +81,7 @@ class ShortyLinkFragment : Fragment(), ShortyLinkView, View.OnClickListener {
                     }
                 }
                 is NetworkState.Failure -> {
-                    onShortyError(state.error as? String)
+                    onShortlyError(state.error as? String)
                 }
                 is NetworkState.Loading -> {
                     Log.d("", "")
@@ -105,7 +105,7 @@ class ShortyLinkFragment : Fragment(), ShortyLinkView, View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.buttonShortenIt -> {
-                triggerShorty()
+                triggerShortly()
             }
         }
     }
@@ -117,21 +117,21 @@ class ShortyLinkFragment : Fragment(), ShortyLinkView, View.OnClickListener {
         return fragmentShortyBinding?.layoutShortenUrlForm?.editTextLink?.text.toString()
     }
 
-    override fun triggerShorty() {
+    override fun triggerShortly() {
         fragmentShortyBinding?.layoutShortenUrlForm?.editTextLink?.text.toString()
             .takeIf { it.isNotEmpty() }?.let {
                 hideKeyboard()
                 if (NetworkStatusListener.isOnline(requireContext())) {
                     shortlyViewModel?.shortenLink(link = getEnteredLink())
                 } else {
-                    onShortyError(getString(R.string.no_internet_error))
+                    onShortlyError(getString(R.string.no_internet_error))
                 }
             } ?: kotlin.run {
             emptyURLError()
         }
     }
 
-    override fun onShortyError(message: String?) {
+    override fun onShortlyError(message: String?) {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.error))
             .setMessage(message ?: getString(R.string.error_received_custom))
