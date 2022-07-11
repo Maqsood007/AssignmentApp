@@ -4,7 +4,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context.CLIPBOARD_SERVICE
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -84,7 +83,6 @@ class ShortyLinkFragment : Fragment(), ShortyLinkView, View.OnClickListener {
                     onShortlyError(state.error as? String)
                 }
                 is NetworkState.Loading -> {
-
                 }
             }
         }
