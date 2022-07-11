@@ -17,7 +17,19 @@ class ShortlyAppRepository @Inject constructor(
         return shortlyAppAPI.shortenUrl(url)
     }
 
+    override suspend fun getAllShortlyLinks(): List<ShortlyLink> {
+        return shortlyDatabase.shortlyLinkDao().getAllShortlyLinks()
+    }
+
     override suspend fun addShortlyLink(shortlyLink: ShortlyLink) {
         shortlyDatabase.shortlyLinkDao().addShortlyLink(shortlyLink)
+    }
+
+    override suspend fun deleteByCode(code: String) {
+        shortlyDatabase.shortlyLinkDao().deleteByCode(code)
+    }
+
+    override suspend fun getAllShortlyLinksCount(): Int {
+        return shortlyDatabase.shortlyLinkDao().getAllShortlyLinksCount()
     }
 }
