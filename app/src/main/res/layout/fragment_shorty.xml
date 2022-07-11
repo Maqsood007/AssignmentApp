@@ -27,6 +27,17 @@
 
     </ViewSwitcher>
 
+
+    <ImageView
+        android:id="@+id/imageViewGradient"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_40sdp"
+        android:alpha="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/layout_shorten_url_form"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/gradient_drawable" />
+
     <include
         android:id="@+id/layout_shorten_url_form"
         layout="@layout/layout_shorten_url_form"
