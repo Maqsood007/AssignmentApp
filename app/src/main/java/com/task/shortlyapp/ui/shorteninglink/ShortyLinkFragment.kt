@@ -19,7 +19,9 @@ import com.task.shortlyapp.utils.NetworkState
 import com.task.shortlyapp.utils.NetworkStatusListener
 import com.task.shortlyapp.utils.getColor
 import com.task.shortlyapp.utils.getDrawable
+import com.task.shortlyapp.utils.hide
 import com.task.shortlyapp.utils.hideKeyboard
+import com.task.shortlyapp.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -78,11 +80,14 @@ class ShortyLinkFragment : Fragment(), ShortyLinkView, View.OnClickListener {
                             shortlyLinksListAdapter.add(it)
                         }
                     }
+                    enableDisableShortenItButton(enable = true)
                 }
                 is NetworkState.Failure -> {
                     onShortlyError(state.error as? String)
+                    enableDisableShortenItButton(enable = true)
                 }
                 is NetworkState.Loading -> {
+                    enableDisableShortenItButton(enable = false)
                 }
             }
         }
@@ -169,6 +174,13 @@ class ShortyLinkFragment : Fragment(), ShortyLinkView, View.OnClickListener {
             )
             hint = hintText
             setHintTextColor(getColor(requireContext(), hintColor))
+        }
+    }
+
+    private fun enableDisableShortenItButton(enable: Boolean) {
+        fragmentShortyBinding?.layoutShortenUrlForm?.apply {
+            buttonShortenIt.isEnabled = enable
+            if (enable) myProgressBar.hide() else myProgressBar.show()
         }
     }
 }

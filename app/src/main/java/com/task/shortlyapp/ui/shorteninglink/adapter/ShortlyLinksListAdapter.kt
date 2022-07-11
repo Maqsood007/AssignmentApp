@@ -59,13 +59,17 @@ class ShortlyLinksListAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun add(shortlyLink: ShortlyLink) {
-        this.shortlyLinks.add(0, shortlyLink)
+        synchronized(this.shortlyLinks) {
+            this.shortlyLinks.add(0, shortlyLink)
+        }
         notifyDataSetChanged()
     }
 
     @SuppressLint("NotifyDataSetChanged")
     fun remove(shortlyLink: ShortlyLink) {
-        shortlyLinks.remove(shortlyLink)
+        synchronized(this.shortlyLinks) {
+            shortlyLinks.remove(shortlyLink)
+        }
         notifyDataSetChanged()
     }
 
