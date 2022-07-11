@@ -4,16 +4,10 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
 
-fun getDrawable(context: Context?, drawableId: Int): Drawable? {
-    context?.let {
-        return ContextCompat.getDrawable(it, drawableId)
-    }
-    return null
+fun getDrawable(context: Context, drawableId: Int): Drawable? {
+    return ContextCompat.getDrawable(context, drawableId)
 }
 
-fun getColor(context: Context?, colorId: Int): Int? {
-    context?.let {
-        return ContextCompat.getColor(it, colorId)
-    }
-    return null
+fun getColor(context: Context, colorId: Int): Int {
+    return ContextCompat.getColor(context, colorId)
 }
