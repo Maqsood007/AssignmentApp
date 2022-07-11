@@ -1,56 +1,76 @@
-### Objective
+#Shortly
 
-Using Swift or Kotlin, your challenge is to build out a single page mobile app for URL shortening, integrate with the [shrtcode API](https://app.shrtco.de/docs), and get it looking as close to the design as possible.
+#About
+URL shortening is a technique on the Web in which a Uniform Resource Locator (URL) may be made substantially shorter and still direct to the required page. This is achieved by using a redirect that links to the web page that has a long URL.
 
-### Brief
+# Requirements to run the code:
 
-URL shortening is a technique on the Web in which a Uniform Resource Locator (URL) may be made substantially shorter and still direct to the required page. This is achieved by using a redirect that links to the web page that has a long URL. For example, the URL "https://example.com/assets/category_B/subcategory_C/Foo/" can be shortened to "https://example.com/Foo", and the URL "http://example.com/about/index.html" can be shortened to "https://goo.gl/aO3Ssc ".
+**Pre-Requisite to running & installations**
 
-Your challenge is to build a native iOS or Android app, integrate with the [shrtcode API](https://app.shrtco.de/docs) and get it looking as close to the design as possible. There are plenty of libraries and dependencies availble, feel free to use them. Reactive programming is a plus. 
+- Java development kit(JDK) 11
+- Android Studio Chipmunk | 2021.2.1 Patch 1
+- Android gradle plugin version: 7.3.3
+- Min API Level: 21
+- Android Gradle Plugin version: 7.2.1
+- TargetSdkVersion: 32
 
-In case of iOS, it is recommended to buid UI programatically using UIKit and not use any storyboard or xib. We prefer to use combine or RxSwift.
+# Technologies stack(Features):
 
-The assignment should take around 4-6 hours ideally but you can spend time as much as you need, we don't evaluate the time.
+- Android MVVM (ModelView-View-Model) design pattern.
+- Reactive Programming.
+- Programing Language: Kotlin.
+- Jetpack Navigation.
+- Material them Day(Light support)
+- Network library: Retrofit + logging Interceptors.
+- Kotlin Coroutines & live data
+- Android View Binding
+- Hilt for dependency Injection.
+- Leak canary added for memory leaks detection.
+- Spotless for linting. A wrapper to ktlint.
+- Pre commit hook for lint check & auto fix(i.e unused imports, code format).
+- Work with development branch, lets raise the PR from development to main branch. in multi-team members, we can use the feature branch or forked repository mechanism.
+- Junit4 + Mockito for unit testing.
 
-Your users should be able to:
+#Known Exemption
 
--   View the optimal layout for the mobile app depending on their device's screen size
--   Shorten any valid URL
--   See a list of their shortened links ("Link History"). Link History should be persisted ideally.
--   Copy the shortened link to their clipboard in a single click
--   Delete a shortened link from their Link History
--   Receive an error message when the `form` is submitted if:
-    -   The `input` field is empty
+- Dark theme is not supported due to unavailability of the drawable resources.
+- Orientation is restricted to portrait as given design is not friendly for landscape.
+- I'm really sorry due to time constraints, I'm unable to write the test. But I am sure that I have written a testable code. We can have a discussion about test cases. 
 
-Your task is to build out the project to the designs inside the `/design` folder.
-See the designs in Figma here: https://bit.ly/330dJxN
-See the designs as a video here: https://bit.ly/3sj8BAJ
+# Why I chose
 
-You will find all the required assets in the `/images` folder. The assets are already optimized. The designs are in SVG format. This will mean that you'll need to use your best judgment for styles such as `font-size`, `padding`, and `margin`.
+**MVVM Architecture**
+As google has made MVVM official Android architecture. It resolve lot of legacy issues like
+- Configuration changes data Persistence with viewModel
+- Supports layers
+- No View coupling with business logic
+- Avoid memory leaks with lifeCycle awareness.
+- Easier to maintain the code.
+- Write testable code.
+- And many more.
 
-There is also a `style-guide.md` file containing the information you'll need, such as color palette and fonts.
+**Spotless Linter & Pre commit hook**
+- It's always a challenge to maintain the code. Team members some time forgot to remove unused imports or code formats. More then that we can have custom rules to apply on code. i.e file column range, run tests before pushing code. This helps to identify the issue at earlier stages
 
-### Evaluation Criteria
+**Leak Canary**
+It really helps to identify the memory leaks at development level. Its installed with debugImplementation and no size impact on production releases.
 
--   Using **Swift** or **Kotlin** best practices. 
--   Show us your work through your commit history
--   We're looking for you to produce working code, with enough room to demonstrate how to structure components in a small program
--   Completeness: did you complete the features?
--   Correctness: does the functionality act in sensible, thought-out ways?
--   Maintainability: is it written in a clean, maintainable way?
--   Testing: is the code adequately tested?
--   Optional: Surprise us by user experience or advance programming approaches. 
+**Room over SQLite**
+Room is recent google official library to persist data. Its actually a wrapper to SQLite. I chose it as the database requirements was straightforward
 
-### Deliverables
+**Dependencies organisation**
+I have organized all dependencies in dependencies.gradle file. By keeping in mind the scalability factor, It helps in multi-module project.
 
--  Write a README file to demonstrate choices and technical decision you made. Mention target platform version and any setup necessary to build the application.
--  Make sure to include all source code in the repository.
--  We recommend using latest tools which are stable(currently Xcode ~13.2 or Android Studio Bumblebee ~ 2021.1.1. Do NOT use any beta versions. Make sure that your solution works fine before submitting and it will not take a lot of time for our team to build and run your code. If it takes a lot of time to setup and run the code, we ll reject the solution.
+**Dependency Injection**
+This is one of SOLID programming principle and it really help to organize the dependencies. Dependency injection helps in writing a testable code.
 
-### CodeSubmit
+**Retrofit Networking Library**
+Retrofit is the most commonly used library for network call in Android ecosystem. It has a good update version history and support the coroutines & MVVM.
 
-Please organize, design, test, and document your code as if it were going into production - then push your changes to the master branch. After you have pushed your code, you may submit the assignment on the assignment page.
+**Jetpack Navigation**
+It was always hard to make custom fragment transaction. New navigationAPI's are easy to use and navigation, deep links, passing argument made very easy.
 
-**Have fun building!** 🚀
+**Launcher Icon - Had fun**
+As i was instructed to assume build is were going to production. I have added a custom launcher icon,
 
-The MAYD Group GmbH Team
+
