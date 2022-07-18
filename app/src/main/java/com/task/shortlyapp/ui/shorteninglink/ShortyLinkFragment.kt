@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.task.shortlyapp.R
 import com.task.shortlyapp.databinding.FragmentShortyBinding
@@ -29,7 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ShortyLinkFragment : Fragment(), ShortyLinkView, View.OnClickListener {
 
     private var fragmentShortyBinding: FragmentShortyBinding? = null
-    private var shortlyViewModel: ShortlyViewModel? = null
+    private val shortlyViewModel: ShortlyViewModel by viewModels()
     private val shortlyLinksListAdapter = ShortlyLinksListAdapter({
         onDelete(shortlyLink = it)
     }, {
@@ -46,9 +46,8 @@ class ShortyLinkFragment : Fragment(), ShortyLinkView, View.OnClickListener {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        shortlyViewModel = ViewModelProvider(this)[ShortlyViewModel::class.java]
         addListeners()
-        shortlyViewModel?.initialViewToggle()
+        shortlyViewModel.initialViewToggle()
         initAdapter()
     }
 
@@ -57,13 +56,13 @@ class ShortyLinkFragment : Fragment(), ShortyLinkView, View.OnClickListener {
             adapter = shortlyLinksListAdapter
         }
         if (shortlyLinksListAdapter.shortlyLinks.isEmpty())
-            shortlyViewModel?.getShortenLinksFromDb()
+            shortlyViewModel.getShortenLinksFromDb()
     }
 
     //region LISTENERS
     private fun addListeners() {
 
-        shortlyViewModel?.initialViewToggle?.observe(viewLifecycleOwner) {
+        shortlyViewModel.initialViewToggle.observe(viewLifecycleOwner) {
             fragmentShortyBinding?.viewSwitcher?.displayedChild = it.position
         }
 
@@ -73,7 +72,7 @@ class ShortyLinkFragment : Fragment(), ShortyLinkView, View.OnClickListener {
     }
 
     private fun addShorteningLinkStateObserver() {
-        shortlyViewModel?.shorteningLinkState?.observe(viewLifecycleOwner) { state ->
+        shortlyViewModel.shorteningLinkState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is NetworkState.Success -> {
                     (state.data as List<ShortlyLink>).forEach {
@@ -127,7 +126,7 @@ class ShortyLinkFragment : Fragment(), ShortyLinkView, View.OnClickListener {
             .takeIf { it.isNotEmpty() }?.let {
                 hideKeyboard()
                 if (NetworkStatusListener.isOnline(requireContext())) {
-                    shortlyViewModel?.shortenLink(link = getEnteredLink())
+                    shortlyViewModel.shortenLink(link = getEnteredLink())
                 } else {
                     onShortlyError(getString(R.string.no_internet_error))
                 }
@@ -154,9 +153,9 @@ class ShortyLinkFragment : Fragment(), ShortyLinkView, View.OnClickListener {
 
     override fun onDelete(shortlyLink: ShortlyLink) {
         shortlyLinksListAdapter.remove(shortlyLink)
-        shortlyViewModel?.initialViewToggle?.value =
+        shortlyViewModel.initialViewToggle.value =
             if (shortlyLinksListAdapter.shortlyLinks.isEmpty()) ViewType.ILLUSTRATION else ViewType.DATA
-        shortlyViewModel?.deleteShortlyLink(shortlyLink)
+        shortlyViewModel.deleteShortlyLink(shortlyLink)
     }
 
     override fun onCopy(shortlyLink: ShortlyLink) {
