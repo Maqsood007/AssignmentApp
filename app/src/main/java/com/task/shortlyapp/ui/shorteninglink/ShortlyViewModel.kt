@@ -61,6 +61,8 @@ class ShortlyViewModel @Inject constructor(
                 onShortlySuccess(shortenUrlResponse = response)
             } catch (e: HttpException) {
                 onShortlyError(httpException = e)
+            }catch (e: Exception){
+                shorteningLinkState.value = NetworkState.Failure(e.localizedMessage)
             }
         }
     }
