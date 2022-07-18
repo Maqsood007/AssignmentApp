@@ -75,7 +75,7 @@ class ShortyLinkFragment : Fragment(), ShortyLinkView, View.OnClickListener {
         shortlyViewModel.shorteningLinkState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is NetworkState.Success -> {
-                    (state.data as List<ShortlyLink>).forEach {
+                    (state.data as? List<ShortlyLink>)?.forEach {
                         if (shortlyLinksListAdapter.shortlyLinks.contains(it).not()) {
                             shortlyLinksListAdapter.add(it)
                         }
