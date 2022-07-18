@@ -7,7 +7,7 @@ import com.task.shortlyapp.repository.ShortlyAppRepository
 import com.task.shortlyapp.repository.locale.entity.ShortlyLink
 import com.task.shortlyapp.repository.models.ShortenUrlResponse
 import com.task.shortlyapp.utils.NetworkState
-import com.task.shortlyapp.utils.parseShortyLinkErrorResponse
+import com.task.shortlyapp.utils.RetrofitUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
@@ -77,7 +77,7 @@ class ShortlyViewModel @Inject constructor(
     private fun onShortlyError(httpException: HttpException) {
         httpException.response().takeIf { it?.errorBody() != null }?.let {
             shorteningLinkState.value =
-                NetworkState.Failure(parseShortyLinkErrorResponse(it.errorBody())?.error)
+                NetworkState.Failure(RetrofitUtils.parseShortyLinkErrorResponse(it.errorBody())?.error)
         } ?: kotlin.run {
             shorteningLinkState.value = NetworkState.Failure(httpException.localizedMessage)
         }
