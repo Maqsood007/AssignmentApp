@@ -51,6 +51,9 @@ class ShortlyViewModel @Inject constructor(
         }
     }
 
+    suspend fun checkIfLinkExist(link: String): Boolean {
+        return shortlyAppRepository.getShortenLinkByOriginalLink(link) != null
+    }
     fun shortenLink(link: String) {
         viewModelScope.launch {
             shorteningLinkState.value = NetworkState.Loading(true)
@@ -61,7 +64,7 @@ class ShortlyViewModel @Inject constructor(
                 onShortlySuccess(shortenUrlResponse = response)
             } catch (e: HttpException) {
                 onShortlyError(httpException = e)
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 shorteningLinkState.value = NetworkState.Failure(e.localizedMessage)
             }
         }

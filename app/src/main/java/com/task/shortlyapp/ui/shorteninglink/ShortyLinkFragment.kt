@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.task.shortlyapp.R
 import com.task.shortlyapp.databinding.FragmentShortyBinding
@@ -24,6 +25,7 @@ import com.task.shortlyapp.utils.hideKeyboard
 import com.task.shortlyapp.utils.show
 import com.task.shortlyapp.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ShortyLinkFragment : Fragment(), ShortyLinkView, View.OnClickListener {
@@ -126,7 +128,17 @@ class ShortyLinkFragment : Fragment(), ShortyLinkView, View.OnClickListener {
             .takeIf { it.isNotEmpty() }?.let {
                 hideKeyboard()
                 if (NetworkStatusListener.isOnline(requireContext())) {
-                    shortlyViewModel.shortenLink(link = getEnteredLink())
+                    lifecycleScope.launch {
+
+                        getEnteredLink().takeIf {
+                            shortlyViewModel.checkIfLinkExist(it).not()
+                        }?.let {
+                            shortlyViewModel.shortenLink(link = getEnteredLink())
+                        } ?: kotlin.run {
+                            onShortlyError(getString(R.string.link_already_exist))
+                        }
+
+                    }
                 } else {
                     onShortlyError(getString(R.string.no_internet_error))
                 }

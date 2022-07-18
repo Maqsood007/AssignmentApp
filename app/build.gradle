@@ -19,7 +19,7 @@ android {
         versionName app.versionName
 
         flavorDimensions "default"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.task.shortlyapp.CustomTestRunner"
     }
 
     buildTypes {
