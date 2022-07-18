@@ -129,7 +129,6 @@ class ShortyLinkFragment : Fragment(), ShortyLinkView, View.OnClickListener {
                 hideKeyboard()
                 if (NetworkStatusListener.isOnline(requireContext())) {
                     lifecycleScope.launch {
-
                         getEnteredLink().takeIf {
                             shortlyViewModel.checkIfLinkExist(it).not()
                         }?.let {
@@ -137,7 +136,6 @@ class ShortyLinkFragment : Fragment(), ShortyLinkView, View.OnClickListener {
                         } ?: kotlin.run {
                             onShortlyError(getString(R.string.link_already_exist))
                         }
-
                     }
                 } else {
                     onShortlyError(getString(R.string.no_internet_error))

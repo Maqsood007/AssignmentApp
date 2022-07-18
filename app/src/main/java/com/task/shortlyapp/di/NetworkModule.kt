@@ -26,6 +26,6 @@ object NetworkModule {
 
     @Provides
     fun retrofit(httpClient: OkHttpClient, converterFactory: Converter.Factory): Retrofit {
-        return RetrofitClient.getRetrofit(httpClient,converterFactory)
+        return RetrofitClient.getRetrofit(httpClient, converterFactory)
     }
 }

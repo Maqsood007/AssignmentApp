@@ -61,7 +61,6 @@ class ShortlyDatabaseTest : TestCase() {
         assert(shortLinks.size == 1)
     }
 
-
     /** here we are first adding an item to the db and then checking if that item
      * is present in the db -- if the item is present then we will delete it
      * again try to get the items and check if that previous item is not available then test pass

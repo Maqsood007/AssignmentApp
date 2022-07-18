@@ -33,7 +33,7 @@ class ShortlyAppRepository @Inject constructor(
         return shortlyDatabase.shortlyLinkDao().getAllShortlyLinksCount()
     }
 
-    override suspend fun getShortenLinkByOriginalLink(originalLink: String) : ShortlyLink?{
+    override suspend fun getShortenLinkByOriginalLink(originalLink: String): ShortlyLink? {
         return shortlyDatabase.shortlyLinkDao().getShortenLinkByOriginalLink(originalLink)
     }
 }

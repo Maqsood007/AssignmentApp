@@ -22,5 +22,5 @@ interface ShortlyLinkDao {
     suspend fun deleteByCode(code: String)
 
     @Query("SELECT * FROM shortly_links WHERE original_link = :originalLink")
-    suspend fun getShortenLinkByOriginalLink(originalLink: String) : ShortlyLink?
+    suspend fun getShortenLinkByOriginalLink(originalLink: String): ShortlyLink?
 }
