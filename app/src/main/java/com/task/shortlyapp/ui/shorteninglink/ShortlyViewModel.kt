@@ -7,13 +7,13 @@ import com.task.shortlyapp.repository.ShortlyAppRepository
 import com.task.shortlyapp.repository.locale.entity.ShortlyLink
 import com.task.shortlyapp.repository.models.ShortenUrlResponse
 import com.task.shortlyapp.utils.NetworkState
-import com.task.shortlyapp.utils.RetrofitUtils
+import com.task.shortlyapp.utils.parseShortyLinkErrorResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
+import javax.inject.Inject
 
 @HiltViewModel
 class ShortlyViewModel @Inject constructor(
@@ -66,9 +66,11 @@ class ShortlyViewModel @Inject constructor(
     }
 
     private suspend fun onShortlySuccess(shortenUrlResponse: ShortenUrlResponse) {
-        shortlyAppRepository.addShortlyLink(shortenUrlResponse.result.apply {
-            created_at = System.currentTimeMillis()
-        })
+        shortlyAppRepository.addShortlyLink(
+            shortenUrlResponse.result.apply {
+                created_at = System.currentTimeMillis()
+            }
+        )
         shorteningLinkState.value =
             NetworkState.Success(mutableListOf<ShortlyLink>().apply { add(shortenUrlResponse.result) })
         initialViewToggle.value = ViewType.DATA
@@ -77,7 +79,7 @@ class ShortlyViewModel @Inject constructor(
     private fun onShortlyError(httpException: HttpException) {
         httpException.response().takeIf { it?.errorBody() != null }?.let {
             shorteningLinkState.value =
-                NetworkState.Failure(RetrofitUtils.parseShortyLinkErrorResponse(it.errorBody())?.error)
+                NetworkState.Failure(parseShortyLinkErrorResponse(it.errorBody())?.error)
         } ?: kotlin.run {
             shorteningLinkState.value = NetworkState.Failure(httpException.localizedMessage)
         }

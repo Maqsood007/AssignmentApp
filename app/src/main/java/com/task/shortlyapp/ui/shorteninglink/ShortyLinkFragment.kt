@@ -55,13 +55,13 @@ class ShortyLinkFragment : Fragment(), ShortyLinkView, View.OnClickListener {
         fragmentShortyBinding?.contentLinkHistory?.recycleViewLinks?.apply {
             adapter = shortlyLinksListAdapter
         }
-        if (shortlyLinksListAdapter.shortlyLinks.isEmpty())
+        if (shortlyLinksListAdapter.shortlyLinks.isEmpty()) {
             shortlyViewModel.getShortenLinksFromDb()
+        }
     }
 
     //region LISTENERS
     private fun addListeners() {
-
         shortlyViewModel.initialViewToggle.observe(viewLifecycleOwner) {
             fragmentShortyBinding?.viewSwitcher?.displayedChild = it.position
         }

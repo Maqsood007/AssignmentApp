@@ -21,10 +21,11 @@ class ShortlyLinksListAdapter(
     var shortlyLinks: MutableList<ShortlyLink> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
         val mostViewedListItemBinding: LayoutListItemLinkHistoryBinding =
             LayoutListItemLinkHistoryBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
+                LayoutInflater.from(parent.context),
+                parent,
+                false
             )
 
         return ViewHolder(mostViewedListItemBinding)
@@ -35,7 +36,6 @@ class ShortlyLinksListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
         val shortlyLink = shortlyLinks[position].let {
             holder.bind(it)
             return@let it
