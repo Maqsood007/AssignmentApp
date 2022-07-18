@@ -42,7 +42,7 @@ class ShortlyLinksListAdapter(
         }
 
         holder.layoutListItemLinkHistoryBinding.buttonCopy.setOnClickListener {
-            onCopied(shortlyLink, position)
+            onCopied(shortlyLink)
         }
 
         holder.layoutListItemLinkHistoryBinding.buttonDelete.setOnClickListener {
@@ -50,7 +50,7 @@ class ShortlyLinksListAdapter(
         }
     }
 
-    private fun onCopied(shortlyLink: ShortlyLink, position: Int) {
+    private fun onCopied(shortlyLink: ShortlyLink) {
         shortlyLinks.find { it.copied && (shortlyLink.copied != it.copied) }?.copied = false
         shortlyLink.copied = true
         invalidateChangesToList()
